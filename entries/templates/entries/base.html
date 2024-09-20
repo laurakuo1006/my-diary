@@ -1,0 +1,39 @@
+<!-- entries/templates/entries/base.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>My Diary</title>
+        <link rel="stylesheet" href="{% static 'css/diary.css' %}">
+    </head>
+    <body>
+        <div id="page">
+            <div class="container">
+                <h1><a href="/">Dear diary …</a></h1>
+
+                <!-- Search bar at the top-right corner -->
+                <div class="top-right">
+                    <form method="GET" action="{% url 'entry-search' %}">
+                        <input type="text" name="q" placeholder="Search entries..." required>
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+
+                {% if messages %}
+                    <ul class="messages">
+                    {% for message in messages %}
+                        <li class="message">
+                            {{ message }}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                
+                {% block content %}{% endblock %}
+                <a id="logout" href="{% url 'admin:logout' %}">Logout</a>
+            </div>
+        </div>
+    </body>
+</html>
